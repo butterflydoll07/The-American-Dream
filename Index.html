@@ -39,6 +39,11 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(
 @media print{.site-header,.site-footer,.hero,.controls{display:none !important} body{background:#fff} .card{box-shadow:none;border:none}}
 </style>
 </head>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', ()=> navigator.serviceWorker.register('sw.js'));
+}
+  </script>
 <body>
 <header class="site-header">
   <div class="brand">
