@@ -1,0 +1,9 @@
+{
+  "name": "The American Dream",
+  "short_name": "AmericanDream",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f4c81",
+  "icons": []
+}
