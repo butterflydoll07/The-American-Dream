@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The American Dream • Free Homeschooling</title>
+<meta name="theme-color" content="#0f4c81"/>
+<style>
+/* ===== THE AMERICAN DREAM • MIN THEME (inline so Step 1 works alone) ===== */
+:root{
+  --ink:#0f172a; --bg:#f7f8fc; --card:#fff; --line:#e8ecf3;
+  --brand:#4e7df2; --brand2:#35c1b8; --accent:#f59e0b; --note:#6b7280;
+  --r:16px; --shadow:0 8px 24px rgba(3,7,18,.06)
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--ink);line-height:1.55}
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--brand2), var(--brand));box-shadow: inset 0 0 0 3px #fff, 0 4px 10px rgba(0,0,0,.12)}
+.brand h1{font-size:1.1rem;margin:0}
+.site-header a{color:var(--brand);text-decoration:none;font-weight:600;margin-left:12px}
+.container{max-width:980px;margin:24px auto;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:16px 0;box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+@media (max-width:800px){.hero{grid-template-columns:1fr}}
+.btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(.96)} .btn2{background:var(--brand2)} .btn3{background:var(--accent)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700;color:#fff;background:var(--brand2)}
+.meta{color:var(--note);font-size:.92rem;margin:.25rem 0 1rem} .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lesson-card{border:2px dashed #dfe6f4;background:repeating-linear-gradient(-45deg,#fff,#fff 16px,#fbfdff 16px,#fbfdff 32px)}
+.update.hidden{display:none}
+.site-footer{padding:20px;text-align:center;color:var(--note)}
+.doodle{border:3px solid #1e293b;border-radius:18px;box-shadow:0 6px 0 #1e293b20}
+.print-note{font-size:.9rem;color:var(--note)}
+/* Printable worksheet page (Step 1 includes a working printable HTML) */
+.ws{max-width:780px;margin:0 auto;padding:20px}
+.ws h1{text-align:center;margin:0 0 6px}
+.ws .box{border:2px dashed #94a3b8;border-radius:14px;padding:14px;margin:12px 0}
+@media print{.site-header,.site-footer,.hero,.controls{display:none !important} body{background:#fff} .card{box-shadow:none;border:none}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"></div>
+    <h1>The American Dream</h1>
+  </div>
+  <nav>
+    <a href="#printable">Printables</a>
+    <a href="#support">Support</a>
+  </nav>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="card hero">
+    <div>
+      <h2 style="margin-top:0">Your AI Schoolhouse Helper</h2>
+      <p class="meta">Cute, friendly, parent-led lessons. Works online and prints cleanly. No sign-in. No paywalls.</p>
+      <div class="row">
+        <a class="btn btn3" id="loadDemo">Try a Demo Lesson</a>
+        <button class="btn btn2" id="checkUpdate">Check for Updates</button>
+      </div>
+    </div>
+    <!-- tiny inline SVG so Step 1 has art without files -->
+    <svg class="doodle" viewBox="0 0 320 220" style="width:100%;max-height:260px;object-fit:cover;background:#fff">
+      <circle cx="60" cy="120" r="28" fill="#fde68a" stroke="#1e293b" stroke-width="5"/>
+      <rect x="140" y="70" rx="10" width="160" height="90" fill="#bfdbfe" stroke="#1e293b" stroke-width="5"/>
+      <path d="M20 200 Q80 170 140 200 T260 200 T340 200" fill="none" stroke="#1e293b" stroke-width="5"/>
+    </svg>
+  </section>
+
+  <!-- LESSON -->
+  <section class="card lesson-card">
+    <span class="badge">Today’s Lesson (Demo)</span>
+    <div class="row" style="margin-top:10px">
+      <label for="mode">Mode:</label>
+      <select id="mode">
+        <option value="facts">Facts Only</option>
+        <option value="learning">Learning Mode</option>
+        <option value="fun">Fun Mode</option>
+      </select>
+    </div>
+    <h3 id="lessonTitle">—</h3>
+    <div id="sourceMeta" class="meta"></div>
+    <article id="lessonContent"></article>
+    <section id="activities"></section>
+  </section>
+
+  <!-- PRINTABLES -->
+  <section id="printable" class="card">
+    <h3>Printables</h3>
+    <p class="print-note">No PDF needed — prints cleanly from your browser.</p>
+    <ul>
+      <li><a href="#worksheet-plant" onclick="openWorksheet();return false;">Science: Plant Parts (Day 1)</a></li>
+    </ul>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support" class="card">
+    <h3>Support (Optional)</h3>
+    <p>This project stays free for every family. If you want to help keep it updated:</p>
+    <p class="row">
+      <a class="btn" href="https://paypal.me/YOURNAME" target="_blank" rel="noopener">Donate via PayPal</a>
+      <a class="btn btn2" href="https://buymeacoffee.com/YOURNAME" target="_blank" rel="noopener">Buy Me a Coffee</a>
+      <a class="btn btn3" href="https://opencollective.com/YOURSLUG" target="_blank" rel="noopener">OpenCollective</a>
+    </p>
+    <small class="meta">Donations are optional. Access stays free either way.</small>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© 2025 The American Dream — Free Homeschooling.</small>
+</footer>
+
+<script>
+/* ===== Update check (safe even without a manifest.json yet) ===== */
+async function checkForUpdates(){
+  try{
+    const res = await fetch('manifest.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('no manifest yet');
+    const m = await res.json();
+    const current = localStorage.getItem('adream_version') || 'none';
+    if (m.version !== current) {
+      alert((m.notes||'New content available.') + (m.zip_url? '\\n\\nOffline Pack: ' + m.zip_url : ''));
+      localStorage.setItem('adream_version', m.version);
+    } else {
+      alert('You are up to date.');
+    }
+  } catch(e){
+    alert('No update file yet — that’s okay. The site is running.');
+  }
+}
+document.getElementById('checkUpdate').addEventListener('click', checkForUpdates);
+
+/* ===== Demo lesson so Step 1 feels alive ===== */
+const demo = {
+  title: "Plant Parts (K–2)",
+  source: "Original demo content",
+  facts_text: "Plants have roots (drink water), a stem (holds the plant up; moves water), and leaves (make food using sunlight).",
+  learning_prompts: [
+    "Label the parts: roots, stem, leaves.",
+    "Point to where water goes first."
+  ],
+  fun_prompts: [
+    "Draw a goofy plant with 10 leaves.",
+    "Go outside and find a plant. Sketch it!"
+  ]
+};
+function loadDemo(){
+  const mode = document.getElementById('mode').value;
+  document.getElementById('lessonTitle').textContent = demo.title;
+  document.getElementById('sourceMeta').textContent = `Source: ${demo.source}`;
+  const c = document.getElementById('lessonContent');
+  const a = document.getElementById('activities');
+  c.innerHTML = ""; a.innerHTML = "";
+  c.innerHTML = `<p>${demo.facts_text}</p>`;
+  if (mode === 'learning') a.innerHTML = `<ol>${demo.learning_prompts.map(p=>`<li>${p}</li>`).join('')}</ol>`;
+  if (mode === 'fun') a.innerHTML = `<ul>${demo.fun_prompts.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+}
+document.getElementById('loadDemo').addEventListener('click', loadDemo);
+
+/* ===== Printable worksheet (inline HTML route) ===== */
+function openWorksheet(){
+  const w = window.open('', '_blank');
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8">
+  <title>Science Worksheet — Plant Parts (Day 1)</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;padding:24px}
+    .ws{max-width:780px;margin:0 auto}
+    h1{text-align:center;margin:0 0 6px}
+    .sub{text-align:center;color:#6b7280;margin:0 0 16px}
+    .box{border:2px dashed #94a3b8;border-radius:14px;padding:14px;margin:14px 0}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    @media print{.print{display:none}}
+  </style>
+  </head><body>
+  <div class="ws">
+    <h1>Science Worksheet — Day 1</h1>
+    <p class="sub">Plant Parts</p>
+
+    <div class="box">
+      <h3>1) Draw and Label</h3>
+      <p>Draw a plant and label: <strong>roots</strong>, <strong>stem</strong>, <strong>leaves</strong>.</p>
+      <div style="height:260px;border:1px solid #cbd5e1;border-radius:10px"></div>
+    </div>
+
+    <div class="box">
+      <h3>2) Match the Part to its Job</h3>
+      <div class="row">
+        <div class="col">
+          <ol>
+            <li>Roots</li>
+            <li>Stem</li>
+            <li>Leaves</li>
+          </ol>
+        </div>
+        <div class="col">
+          <ol type="a">
+            <li>Makes food from sunlight</li>
+            <li>Holds plant up; moves water</li>
+            <li>Drinks water from soil</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3>3) Imagine</h3>
+      <p>If you were a plant, which kind would you be? Draw or write.</p>
+      <div style="height:160px;border:1px solid #cbd5e1;border-radius:10px"></div>
+    </div>
+
+    <p class="print">Tip: Press Ctrl/Cmd+P to print. Footer: The American Dream — Free for every family.</p>
+  </div>
+  </body></html>`);
+  w.document.close();
+}
+</script>
+</body>
+  </html>
